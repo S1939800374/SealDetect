@@ -28,7 +28,7 @@ class SealDetect():
         函数功能：更新参数
         ''' 
         self.rate = rate
-        self.r_learn = 60*self.rate #参数需要学习得知最小值为多少比较合适，下同
+        self.r_learn = 60*self.rate 
         self.point_learn = 5000*self.rate
         self.w_learn = 100*self.rate
         self.img_width=int(800*self.rate)
@@ -144,7 +144,7 @@ class SealDetect():
         img = cv2.imread(self.img_root+img_name)
         #cv_show("demo0",img)
         #处理文档大小
-        if int(img.shape[1]*0.8)>img.shape[0]:
+        if int(img.shape[1]*0.8)>img.shape[0] and img.shape[0]/img.shape[1]>=0.5 and img.shape[0]/img.shape[1]<=0.6:
             self.update(2)
         else:
             self.update(1)
