@@ -15,6 +15,7 @@ class SealDetect():
         self.wh_learn = 2.1
         self.w_learn = 100*self.rate
         self.img_width=int(800*self.rate)
+        self.ang_learn = 85
         self.debug = False
         self.img_root = "./data/img/"
         self.pdf_root = "./data/pdf/"
@@ -28,9 +29,7 @@ class SealDetect():
         ''' 
         self.rate = rate
         self.r_learn = 60*self.rate #参数需要学习得知最小值为多少比较合适，下同
-        self.e_learn = 0.8
         self.point_learn = 5000*self.rate
-        self.wh_learn = 2.1
         self.w_learn = 100*self.rate
         self.img_width=int(800*self.rate)
 
@@ -243,7 +242,7 @@ class SealDetect():
                             rect= cv2.minAreaRect(cnt)
                             (x,y),(w,h),ang =rect
                             print(rect)
-                            if max(w,h)/min(w,h) <self.wh_learn and max(w,h) >self.w_learn and max(w,h) <max(final_width,final_height)/3:
+                            if max(w,h)/min(w,h) <self.wh_learn and max(w,h) >self.w_learn and max(w,h) <max(final_width,final_height)/3 and ang>=self.ang_learn:
                                 info = {
                                     'type':"rectangle",
                                     'center':(int(x),int(y)),
@@ -255,7 +254,7 @@ class SealDetect():
                         rect= cv2.minAreaRect(cnt)
                         (x,y),(w,h),ang =rect
                         print(rect)
-                        if max(w,h)/min(w,h) and max(w,h) >self.w_learn and max(w,h) <max(final_width,final_height)/3:
+                        if max(w,h)/min(w,h) and max(w,h) >self.w_learn and max(w,h) <max(final_width,final_height)/3 and ang>=self.ang_learn:
                             info = {
                                 'type':"rectangle",
                                 'center':(int(x),int(y)),
@@ -279,7 +278,7 @@ if __name__ == '__main__':
     sealdetect = SealDetect()
     sealdetect.debug = True
     for i in range(8):
-        sealdetect.check_seal(str(i+1)+".png")
+         sealdetect.check_seal(str(i+1)+".png")
     sealdetect.check_seal("file_1_0.png")
     # 已经证明无法解决的问题：
     # 圈出来的部分和实际不匹配
