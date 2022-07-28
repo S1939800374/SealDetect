@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Const {
     //网络接口
-    public static String baseurl = "http://192.168.0.161:8080";
+    public static String baseurl = "http://43.142.164.6:8000";
     public static HTTP http = HTTP.builder()
             .baseUrl(Const.baseurl)
             .charset(StandardCharsets.UTF_8)
